@@ -282,11 +282,12 @@ the Great Mighty Poo's subtitles (scene 53):
   (Angrylion's `edgewalker_for_prims`): rows start at the top of the row the top
   edge is in (`uly & ~3`), with T as given there, and S runs along the row from
   where the left edge really is. `RDP::drawTexRect` now moves a regular 1- or
-  2-cycle rectangle's edges out to whole pixels that way. The left, right and
-  bottom edges go out only while the texture coordinate stays on the tile: the
-  console samples each pixel once, but here the part of a pixel past the tile
-  clamped the edge texels into spikes at a speech bubble's tips. Extended GBI
-  rectangles keep their edges. Text, HUD and menu rectangles are already on whole pixels;
+  2-cycle rectangle's edges out to whole pixels that way, for 32-bit RGBA tiles
+  only, which the world sprites all are. Speech bubbles (64x64 IA8) keep their
+  exact edges, as before. The left, right and bottom edges go out only while the
+  texture coordinate stays on the tile: the console samples each pixel once, but
+  here the part of a pixel past the tile would clamp the edge texels into
+  spikes. Extended GBI rectangles keep their edges. Text, HUD and menu rectangles are already on whole pixels;
   the pause menu's signs come out unchanged.
 * `rect.extendEdgeRects` drew a bar from off the left of the screen to the
   4:3 edge before the ball flew in. Wholly left of the screen, the sprite comes

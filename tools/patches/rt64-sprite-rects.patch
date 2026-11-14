@@ -10,7 +10,7 @@
          }
          else if (loadOp.type == LoadOperation::Type::Tile) {
              rowBytes = loadOp.texture.width << loadOp.texture.siz >> 1;
-@@ -1479,6 +1480,65 @@
+@@ -1479,6 +1480,67 @@
              dsdx >>= 2;
              lrx |= 3;
              lry |= 3;
@@ -23,10 +23,12 @@
 +        // (Angrylion's edgewalker_for_prims): rows from the top of the row the top edge is in, with T as given there,
 +        // and S carried on along the row from where the left edge really is. The console samples each pixel once, so
 +        // its edge pixels never reach past the texture; here the part of a pixel past the tile's edge would clamp the
-+        // edge texels into a spike (a speech bubble's tips), so the left, right and bottom edges only go out while the
-+        // texture coordinate stays on the tile. Extended GBI rects are placed by the application and keep their edges.
++        // edge texels into a spike, so the left, right and bottom edges only go out while the texture coordinate stays
++        // on the tile. Only 32-bit RGBA tiles, which Conker's world sprites all are: its speech bubbles (64x64 IA8)
++        // keep their exact edges. Extended GBI rects are placed by the application and keep theirs too.
 +        const bool regularRect = (extAlignment.leftOrigin == G_EX_ORIGIN_NONE) && (extAlignment.rightOrigin == G_EX_ORIGIN_NONE);
-+        if (!usesCopyMode && regularRect && (lrx > ulx) && (lry > uly)) {
++        const bool spriteTile = (tiles[tile].fmt == G_IM_FMT_RGBA) && (tiles[tile].siz == G_IM_SIZ_32b);
++        if (!usesCopyMode && regularRect && spriteTile && (lrx > ulx) && (lry > uly)) {
 +            // Across the rect the coordinate is S (T when flipped), down it T (S when flipped); 10.5 fixed point, the
 +            // steps 5.10 per pixel, so a step times quarter pixels is >> 7. The tile spans its low edge to past its last
 +            // texel, in the same units.
@@ -76,7 +78,7 @@
          }
  
          // A clamped texture rect (or one without a mask, which clamps too) that reaches one side of the scissor but not the other is drawn far past that side,
-@@ -1517,8 +1577,24 @@
+@@ -1517,8 +1579,24 @@
                      const int32_t pixels = mirrored ? extendPixels(tileHigh - leftS, lastColumn) : extendPixels(leftS - tileLow, firstColumn);
                      const int32_t extendedUls = int32_t(uls) - ((int32_t(dsdx) * pixels) >> 5);
                      if ((pixels > 0) && (extendedUls >= INT16_MIN) && (extendedUls <= INT16_MAX)) {
