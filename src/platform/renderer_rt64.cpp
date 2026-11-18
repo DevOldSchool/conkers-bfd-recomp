@@ -509,6 +509,18 @@ public:
             teleport = static_cast<float>(std::atof(value));
         }
         RT64::SetInterpolationTeleportDistance(teleport);
+        // RT64 blends every camera move, so a cut to another shot (a cutscene starting, its shot
+        // changes) showed a picture from a camera halfway between the two shots: a flash of a view
+        // the game never had, often from inside a wall. A camera whose eye jumps more than this
+        // many world units, or that turns more than this many degrees, in one game frame has cut;
+        // the fastest camera moves seen are about 45 units a frame at 60 fps.
+        // CONKER_INTERP_CUT=<units>,<degrees> overrides them (0,0 blends every move again).
+        float cut_distance = 300.0f;
+        float cut_degrees = 45.0f;
+        if (const char* value = std::getenv("CONKER_INTERP_CUT"); value != nullptr && value[0] != '\0') {
+            std::sscanf(value, "%f,%f", &cut_distance, &cut_degrees);
+        }
+        RT64::SetInterpolationCameraCut(cut_distance, cut_degrees);
         // At 60 fps the game starts a frame in the retrace its predecessor was swapped in, into the
         // other of its two frame buffers, so RT64 can be drawing a newer frame (cleared to black
         // first) into the frame buffer of the picture it is presenting: whole black pictures. Each
