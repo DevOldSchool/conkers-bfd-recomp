@@ -837,6 +837,13 @@ func = "func_1501C880"
 before_vram = 0x1501CC00
 text = "{ void conker_60fps_task_queued(uint8_t*, recomp_context*); conker_60fps_task_queued(rdram, ctx); }"
 
+# 60 fps: a door the intro cutscene pushes past its open end restarted its closing sound every frame
+# (the step is half as long). See conker_60fps_door_state in src/enhancements/frame_rate/frame_rate.cpp.
+[[patches.hook]]
+func = "func_1511E780"
+before_vram = 0x1511EC40
+text = "{ void conker_60fps_door_state(uint8_t*, recomp_context*); conker_60fps_door_state(rdram, ctx); }"
+
 # The func_800049E0 hook also keeps the scheduler from taking a second audio task while it waits
 # for a graphics task to yield (src/fixes/scheduler_yield.cpp).
 [[patches.hook]]
