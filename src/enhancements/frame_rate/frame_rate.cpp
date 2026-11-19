@@ -358,6 +358,17 @@ extern "C" void conker_60fps_countdown(uint8_t* rdram, gpr* count) {
     }
 }
 
+// A value in a register moved by `step` once a frame: the step is taken back on a frame that takes
+// no 30 Hz step, so it moves once a step. func_151DF574 (CHAPTERS) moves its row (D_8008FDB0) while
+// the stick is held up or down, then slides the rows by D_8008FF24 from +-10 to 0 by 2 a frame and
+// moves again only once it is 0: 5 frames, 167 ms at 30 fps but 83 ms at 60, so a key tap moved
+// two rows.
+extern "C" void conker_60fps_undo_step(uint8_t* rdram, gpr* value, int32_t step) {
+    if (!conker::frame_rate::thirty_hz_step(rdram)) {
+        *value = static_cast<gpr>(static_cast<int32_t>(*value) - step);
+    }
+}
+
 // A bit flipped once a frame (an animation's two frames): kept as it was on a frame that takes no
 // 30 Hz step. func_15178268 flips bit 8 of the insect's +0x1C, its wings.
 extern "C" void conker_60fps_toggle(uint8_t* rdram, gpr* flipped, gpr before) {
