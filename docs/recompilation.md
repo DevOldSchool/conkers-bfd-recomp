@@ -270,6 +270,15 @@ a vertex behind the camera now counts the screen bounds of the part in front of
 it (clipped at a small positive w), and the backface test, which the flipped
 positions make meaningless, no longer leaves it out of the rect.
 
+`tools/patches/rt64-pack-reload.patch` (apply in `lib/rt64` after
+`rt64-sprite-rects.patch`) keeps texture packs loading again and again. Each
+load begins a command list on the copy queue, but RT64 submitted it only when
+the packs had a low mip cache. On Metal an unsubmitted list keeps its command
+buffer and a queue has only 64, so after 64 loads of a pack without one (the
+GRAPHICS page's TEXTURE PACKS row, a pad connected or changed, ORIGINAL TEXT)
+the copy queue stalled for good. The list is now always submitted and waited
+for.
+
 `tools/patches/rt64-sprite-rects.patch` (apply in `lib/rt64` after all the
 others) fixes two things on the sprites Rare projects from the world and draws as
 texture rectangles (`func_15130A9C`), seen on the karaoke ball that bounces over

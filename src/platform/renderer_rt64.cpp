@@ -311,6 +311,8 @@ struct Packs {
     std::shared_ptr<RT64::FileSystem> menus;
     // By Style, camera swap and the controls shown (pad_icons::shown), made when first wanted.
     std::map<std::tuple<int, bool, conker::pad_icons::Shown>, std::shared_ptr<RT64::FileSystem>> buttons;
+    // The user's packs' pictures of the B pads in those, the same way (made while the packs are on).
+    std::map<std::tuple<int, bool, conker::pad_icons::Shown>, std::shared_ptr<RT64::FileSystem>> pack_pads;
     std::vector<std::filesystem::path> user;
 };
 
@@ -382,6 +384,18 @@ bool use_packs(RT64::Application& app, Packs& packs, bool sharp, conker::pad_ico
     if (buttons && buttons_last) {
         directories.emplace_back(buttons, buttons_name);
         names.push_back(buttons_name);
+        // A pack's own pictures of those B pads, loaded after them (pad_icons::pack_pads).
+        std::shared_ptr<RT64::FileSystem> pads;
+        if (!user_list.empty()) {
+            std::shared_ptr<RT64::FileSystem>& made = packs.pack_pads[{int(pad), swapped, shown}];
+            if (!made) made = conker::pad_icons::pack_pads(buttons, user_list);
+            pads = made;
+        }
+        if (pads) {
+            const std::string pads_name = std::string("texture packs' ") + conker::pad_icons::name(pad) + " B pads";
+            directories.emplace_back(pads, pads_name);
+            names.push_back(pads_name);
+        }
     }
     if (directories.empty()) {
         app.textureCache->clearReplacementDirectories();
