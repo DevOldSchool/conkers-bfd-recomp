@@ -60,6 +60,9 @@ step more:
 To play it from your Steam library (Steam Deck, Big Picture), run the Add to
 Steam script that comes with the game: see [docs/steam.md](docs/steam.md).
 
+An HD texture pack is available separately: see
+[conkers-bfd-hd-texture-pack](https://github.com/DevOldSchool/conkers-bfd-hd-texture-pack).
+
 The debug menu (View, Create or Share on a pad, `` ` `` on the keyboard) holds
 the settings that are not in the game's own OPTIONS, the MODS page (the
 Speedrun timer comes built in, off until you turn it on) and SAVE DEBUG
