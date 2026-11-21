@@ -145,9 +145,9 @@ apps until it reconnects.
 | Analog stick | Left stick | Left stick | W A S D (Shift held walks) |
 | A | A | Cross | Space |
 | B | B or X | Square or Circle | E |
-| Z | LT or RT | L2 or R2 | Left click (fire), Left Ctrl or C (crouch) |
+| Z | RT | R2 | Left click (fire), Left Ctrl or C (crouch) |
 | L | LB | L1 | Q or Tab |
-| R | RB | R1 | Right click (aim), F |
+| R | LT or RB | L2 or R1 | Right click (aim), F |
 | Start | Start | Options | Enter |
 | C buttons | Right stick | Right stick | Mouse (the camera), I J K L |
 | Camera zoom (C-up) | Right stick up | Right stick up | Mouse wheel, or R (in) and T (out) |
