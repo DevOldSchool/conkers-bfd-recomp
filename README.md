@@ -152,7 +152,7 @@ apps until it reconnects.
 | C buttons | Right stick | Right stick | Mouse (the camera), I J K L |
 | Camera zoom (C-up) | Right stick up | Right stick up | Mouse wheel, or R (in) and T (out) |
 | D-pad | D-pad | D-pad | Arrow keys |
-| Debug menu | View | Create (Share) | ` |
+| Debug menu | Both sticks pressed in | L3 + R3 | ` |
 
 Keys held with Cmd or Alt are not passed to the game, so the full-screen
 shortcuts (Cmd+Enter, Alt+Enter) do not press Start.

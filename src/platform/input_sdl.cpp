@@ -11,8 +11,9 @@
 // C buttons (kDefaultMapping). The debug menu's CONTROLS page maps the buttons differently per port
 // (input.hpp's mapping; kept in input.cfg as "map<port>=<button>:<control>,...;..."). Keyboard and
 // mouse: see kKeys, the mouse below and docs/enhancements.md.
-// Back (Create/Share on a PlayStation pad, View on an Xbox pad) and the ` key open the debug menu
-// (src/enhancements/debug_menu); they are not N64 buttons.
+// Both sticks pressed in together (L3 + R3) and the ` key open the debug menu
+// (src/enhancements/debug_menu). Back (Create/Share on a PlayStation pad, View on an Xbox pad) is
+// left unmapped.
 //
 // A pad that can rumble (SDL_GameControllerHasRumble; a DualSense, DualShock 4, Xbox or Switch
 // Pro pad) counts as a rumble pak in its port, and the game's motor on/off drives both of its
@@ -92,7 +93,7 @@ static_assert(kControlCount <= 32, "a control per bit of Controls");
 
 constexpr Controls bit(int control) { return Controls{1} << control; }
 
-// Never mapped: Back opens the debug menu, the guide button is the system's.
+// Never mapped: Back (the debug menu's button before L3 + R3), and the guide button, the system's.
 constexpr Controls kUnmappable = bit(SDL_CONTROLLER_BUTTON_BACK) | bit(SDL_CONTROLLER_BUTTON_GUIDE);
 
 // The controls for each of kMappedButtons, by default.
@@ -1612,7 +1613,10 @@ void update() {
     update_mouse(buttons, zoom_in, zoom_out);
 
     if (g_port1.pad != nullptr) {
-        debug_menu = debug_menu || SDL_GameControllerGetButton(g_port1.pad, SDL_CONTROLLER_BUTTON_BACK);
+        // Both sticks pressed together (L3 + R3) open the menu on every pad, as on the PS5, which keeps
+        // the Create button for itself: one press to learn everywhere.
+        debug_menu = debug_menu || (SDL_GameControllerGetButton(g_port1.pad, SDL_CONTROLLER_BUTTON_LEFTSTICK) &&
+                                    SDL_GameControllerGetButton(g_port1.pad, SDL_CONTROLLER_BUTTON_RIGHTSTICK));
         const float key_x = x;
         const float key_y = y;
         uint16_t pad_menu = 0;
