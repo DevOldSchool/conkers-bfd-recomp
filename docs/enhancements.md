@@ -220,7 +220,7 @@ too.
 
 ## Debug menu
 
-View on an Xbox pad, Create (Share) on a PlayStation pad, or the `` ` `` key opens
+Both of a pad's sticks pressed in together (L3 and R3 on a PlayStation pad), or the `` ` `` key, opens
 it anywhere: in play, in the pause menu, on the title and the game's other
 menus, and in cutscenes. In play it is the game's pause with its own page in
 place of the lever, PAUSED and the HUD, so the game stops as it does for the
