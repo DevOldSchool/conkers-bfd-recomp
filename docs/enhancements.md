@@ -475,7 +475,7 @@ slingshot's sounds are single player's.
 
 ## Adaptive triggers
 
-A DualSense's triggers (both are Z) resist for what Conker is doing:
+A DualSense's trigger that is Z (the right one by default; the left one aims) resists for what Conker is doing:
 
 - **Peeing, drunk.** Once B starts the stream, the triggers resist
   lightly, then harder as holding Z sends it further, firmest when it
@@ -571,7 +571,7 @@ Rare's pre-rendered ones, and change when another kind of pad is connected:
 That is the default mapping; buttons mapped differently on the debug menu's
 CONTROLS page show the pad's control they are mapped to.
 
-B is also on the other side face button (X on Xbox, Circle on PlayStation) and Z on the left trigger,
+B is also on the other side face button (X on Xbox, Circle on PlayStation), R is also on the left trigger (LT, L2), which aims as in modern shooters,
 and the C pictures point the way to push the stick, which is swapped left to
 right by [consistent controls](#consistent-controls); switching those off in the debug menu turns them round. The Xbox buttons are black with coloured letters, the
 PlayStation ones black with the DualShock 4's coloured symbols. With a
