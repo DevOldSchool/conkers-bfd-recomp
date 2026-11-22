@@ -423,8 +423,9 @@ one-player total, 10 (or 8). Team modes (Heist) set the team size on that
 page instead, and players fill the teams in order; the game allowed teams of
 one with three or four players, so they could never share one. Here they get
 the two-player limits, and Heist's four teams hold up to four each (16
-characters), so up to four players can be on one team. Online the host's
-setting is used.
+characters), so up to four players can be on one team. RACE's join window
+let only two players in; here it takes four, with the other modes' four
+slots. Online the host's setting is used.
 `CONKER_MORE_BOTS=0` keeps the game's limits.
 
 ## Characters at full detail

@@ -16,6 +16,9 @@
 // and 4) let 3 and 4 players have teams of one: Heist's four teams were {0, 8, 2} characters and
 // players per team with two players but {0, 4, 1} with more. Here 3 and 4 players get the two-player
 // limits, and Heist's teams hold up to four, so every player can be on one team.
+//
+// The join screen has its own limit: RACE (mode type 7) let only two players join, and drew two
+// slots in the middle. The conker_more_bots_join_* hooks give it the other modes' four slots.
 #include "enhancements/more_bots/more_bots.hpp"
 
 #include <atomic>
@@ -76,6 +79,34 @@ void conker::more_bots::frame(uint8_t* rdram) {
         for (int i = 1; i <= 6; i++) {
             MEM_B(record * kTeamRecordSize + i, kseg0(kTeamRecords)) = on ? more_team(record, i) : kTeamGame[record][i];
         }
+    }
+}
+
+// Hooked in func_151E0B70 once the join screen has chosen its player limit (s8 at sp + 0x33): two
+// for RACE, four for the rest.
+extern "C" void conker_more_bots_join_limit(uint8_t* rdram, recomp_context* ctx) {
+    if (more_bots_enabled()) {
+        MEM_B(0x33, ctx->r29) = 4;
+    }
+}
+
+// Hooked in func_151EC648, the join screen's drawing, once it has chosen how many slots to draw
+// (s8 at sp + 0xF7) and the first one's x (s5): two from 0x70 for RACE, four from 0x28 otherwise.
+extern "C" void conker_more_bots_join_slots(uint8_t* rdram, recomp_context* ctx) {
+    if (more_bots_enabled()) {
+        MEM_B(0xF7, ctx->r29) = 4;
+        ctx->r21 = 0x28;
+    }
+}
+
+constexpr int kRaceType = 7;  // D_8008FDD4 + 0x2C, the mode's type
+
+// Hooked in func_151E7F60, which places a player's figure on the join screen, once it has chosen the
+// slot (v1): the port, one further right for RACE. Without that shift RACE uses all four slots.
+extern "C" void conker_more_bots_join_slot(uint8_t* rdram, recomp_context* ctx) {
+    const gpr settings = static_cast<gpr>(static_cast<int32_t>(MEM_W(0, kseg0(0x8008FDD4))));
+    if (more_bots_enabled() && MEM_B(0x2C, settings) == kRaceType) {
+        ctx->r3 = MEM_W(0x50, ctx->r29);  // the port, a0 as saved on entry
     }
 }
 
