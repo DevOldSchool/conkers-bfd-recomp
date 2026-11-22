@@ -404,6 +404,9 @@ Picture:
   game leaves undrawn, are shown black.
 * `rt64-split-screen-wide.patch`: each view of a split screen is widened for
   widescreen the same way, with the bars between them.
+* `rt64-split-view-overlays.patch`: a rect laid over most of one view of a
+  split screen (that view's fade to black, the red flash of a hit, the death
+  wipe's black) covers the whole widened view, rather than its 4:3 middle.
 
 Building and platforms:
 
