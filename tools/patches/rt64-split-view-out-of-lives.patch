@@ -1,6 +1,6 @@
 --- a/src/render/rt64_framebuffer_renderer.cpp
 +++ b/src/render/rt64_framebuffer_renderer.cpp
-@@ -1767,6 +1767,14 @@
+@@ -1767,6 +1767,15 @@ namespace RT64 {
                                  }
                              }
  
@@ -12,6 +12,7 @@
 +                                    splitViewSides(*splitView, splitLeft, splitRight);
 +                                }
 +                            }
- 
++
                              if ((tileCopiesUsed || coversScissorWidth || call.callDesc.rectAspect == G_EX_ASPECT_STRETCH) && (call.callDesc.rectAspect != G_EX_ASPECT_ADJUST)) {
                                  invRatioScale = 1.0f;
+                             }
