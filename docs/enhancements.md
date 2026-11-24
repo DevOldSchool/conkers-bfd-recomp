@@ -270,7 +270,7 @@ button. Up and down choose a row, A or left and right change it, B goes back:
   runs, each ON or OFF, starting as its `CONKER_*` variable set it: SHARP
   TEXT (the sharper text and menus), WIDESCREEN (the current mode's shape),
   WIDESCREEN CULLING, SKIP INTRO, SKIP CUTSCENES, PAUSE SAVE AND LOAD, EXIT
-  GAME, SAVE SNAPSHOTS, SURROUND DEFAULT, MP CHARACTERS, FULL DETAIL, DRAW
+  GAME, SAVE SNAPSHOTS, SURROUND DEFAULT, MP CHARACTERS, MORE BOTS, FULL DETAIL, DRAW
   DISTANCE, HAPTICS, ADAPTIVE TRIGGERS, CONSISTENT CONTROLS, PAD BUTTONS,
   60 FPS, SMOOTH MOTION and MY VIEW (online: only your own
   view and sounds, see docs/online-play.md), in a list like LOAD REPORT's
@@ -410,6 +410,23 @@ are entered once a frame, so switched on in the debug menu they hold at once;
 switched off, the ones it entered go again and the ones typed stay. Online,
 the host's setting holds for everyone in the match.
 `CONKER_MP_CHARACTERS=0` leaves them to the codes.
+
+## More bots
+
+The bots page after a multiplayer match's join window allows bots up to a
+total of characters, players and bots together, that falls as players join:
+the game's limits are 10, 8, 4 and 4 characters for 1 to 4 players (8, 4, 4
+and 4 in some modes), so three players could add one bot, four none, and
+Heist's teams of three players had one player each. The console had to draw
+every character once for each view. Here every number of players gets the
+one-player total, 10 (or 8). Team modes (Heist) set the team size on that
+page instead, and players fill the teams in order; the game allowed teams of
+one with three or four players, so they could never share one. Here they get
+the two-player limits, and Heist's four teams hold up to four each (16
+characters), so up to four players can be on one team. RACE's join window
+let only two players in; here it takes four, with the other modes' four
+slots. Online the host's setting is used.
+`CONKER_MORE_BOTS=0` keeps the game's limits.
 
 ## Characters at full detail
 

@@ -407,6 +407,9 @@ Picture:
 * `rt64-split-view-overlays.patch`: a rect laid over most of one view of a
   split screen (that view's fade to black, the red flash of a hit, the death
   wipe's black) covers the whole widened view, rather than its 4:3 middle.
+* `rt64-split-view-out-of-lives.patch`: the black over a player out of lives,
+  which `widescreen_out.cpp` stretches, also covers their whole widened view;
+  stretched alone it left a line of the scene at the 4:3 edges.
 
 Building and platforms:
 
